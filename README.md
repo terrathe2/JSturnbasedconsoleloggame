@@ -1,6 +1,6 @@
 # JSturnbasedconsoleloggame
 
-Only javascript, turn based game, output on console log <br />
+Only javascript, automatic turn based game, output on console log <br />
 ----------------------------------------------------------------------------------------------------------------------------- <br />
 <h2 style="color:red">How To Play?</h2>
 <p>

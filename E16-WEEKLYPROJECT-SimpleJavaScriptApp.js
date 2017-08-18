@@ -1,3 +1,5 @@
+/* Copyright 2017 by @hacktiv8-Redha Putra */
+
 //Variabel - variabel
 var luciferHp = 20000;
 var luciferDef = 50;

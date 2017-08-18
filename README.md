@@ -1,4 +1,4 @@
-# Javascript Turn Based Console log Game
+# JSTurnBasedConsolelogGame
 
 Only javascript, turn based game, output on console log <br />
 ----------------------------------------------------------------------------------------------------------------------------- <br />

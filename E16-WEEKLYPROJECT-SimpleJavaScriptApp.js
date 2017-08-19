@@ -1,4 +1,4 @@
-/* Copyright 2017 by @hacktiv8-Redha Putra */
+/* Copyright 2017 @hacktiv8-Redha Putra */
 
 //Variabel - variabel
 var luciferHp = 20000;
@@ -170,10 +170,10 @@ function powerUp(){
     }
     
     alert("Benar!\n\nMasing-masing status ditambah "+tambah);
-    playerStatus(tambah);
+    return playerStatus(tambah);
   }else{
     alert("Maaf Jawaban anda salah!\n\nTidak dapat bonus status");
-    playerStatus(0);
+    return playerStatus(0);
   }
 }
 

@@ -1,0 +1,512 @@
+Note :
+#Kata yang diapit '' merupakan nama variabel
+#Kata yang di tulis dengan huruf kapital merupakan suatu instruksi atau pernyataan (statements)
+#kata atau kalimat yang diapit "" merupakan string
+#kata atau kalimat yang diapit [] merupakan array
+
+-----------------------------------------------------------------------------------------------
+
+BUAT dan ATUR 'luciferHp' menjadi 20000
+BUAT dan ATUR 'luciferDef' menjadi 50
+BUAT dan ATUR 'luciferAtk' menjadi 145
+BUAT dan ATUR 'luciferInt' menjadi 145
+BUAT dan ATUR 'luciferAgi' menjadi 50
+BUAT dan ATUR 'luciferStatusEffect' menjadi ""
+BUAT dan ATUR 'luciferSkills' menjadi ["Demon Slash","Banishing Light","Absorb","Dark Hole"]
+BUAT dan ATUR 'playerHp' menjadi 0
+BUAT dan ATUR 'playerDef' menjadi 0
+BUAT dan ATUR 'playerAtk' menjadi 0
+BUAT dan ATUR 'playerInt' menjadi 0
+BUAT dan ATUR 'playerAgi' menjadi 0
+BUAT 'skills'
+BUAT 'setSkills'
+BUAT 'skillsUsed'
+BUAT 'damage'
+BUAT dan ATUR 'heals' menjadi 0
+BUAT 'chance'
+BUAT 'turn'
+BUAT dan ATUR 'inEffect' menjadi 0
+BUAT dan ATUR 'tambah' menjadi pembulatan kebawah angka acak dari 0 sampai 20
+
+TAMPILKAN "Selamat datang player di game 25 Turn Alert Battle Heroes\nSebelum memulai silahkan buat character terlebih dahulu"
+BUAT dan ATUR 'ign' sesuai dengan masukan, TAMPILKAN "Masukan In Game Nick(IGN) anda : "
+IF 'ign' === ""
+  ATUR 'ign' menjadi "Si Tanpa Nama"
+ENDIF
+
+BUAT dan ATUR 'x' sesuai dengan masukan, TAMPILKAN "Pilih Job yang anda inginkan (masukan hanya angkanya saja) : \n1. Knight (High Defense)\n2. Warrior (High Offense)\n3. Assasin (High Speed)\n4. Wizard (High Intellegent)\n5. Priest (High Health Point)"
+
+SWITCH 'x'
+  case "1" dan "1.":
+    BUAT dan ATUR 'job' menjadi "Knight"
+    BREAK
+  case "2" dan "2.":
+    BUAT dan ATUR 'job' menjadi "Warrior"
+    BREAK
+  case "3" dan "3.":
+    BUAT dan ATUR 'job' menjadi "Assasin"
+    BREAK
+  case "4" dan "4."
+    BUAT dan ATUR 'job' menjadi "Wizard"
+    BREAK  
+  case "5" dan "5."
+    BUAT dan ATUR 'job' menjadi "Priest"
+    BREAK
+  default :
+    TAMPILKAN "Maaf Hanya angka yang terdaftar saja yang sistem terima"
+    BREAK
+ENDSWITCH
+
+IF 'job' != null
+  TAMPILKAN "~=*Selamat Datang 'job' 'ign' *=~\n''~--=.di Flash World.=--~''\n\n"
+  TAMPILKAN "Char name : 'ign' \njob : 'job'"
+  PANGGIL FUNCTION playerStatus(0)
+  PANGGIL FUNCTION playerSkills()
+  TAMPILKAN "Skills : \n*'skills[0][0]'  --- 'skills[0][1]'\n*'skills[1][0]' --- 'skills[1][1]'\n*'skills[2][0]' --- 'skills[2][1]'\n*'skills[3][0]' --- 'skills[3][1]"
+  TAMPILKAN "Misi : Mengalahkan Lucifer(the Fallen Angel)\n\n"
+  TAMPILKAN "~-=Penjelasan Singkat=-~\n*Anda akan diminta untuk mengalahkan Lucifer(The Fallen Angel).\n*Pertarungan di lakukan secara otomatis.\n*Setiap job yang ada memiliki skill dengan damage dan effect yang berbeda.\n*Sebelum bertarung anda dapat melakukan power up dengan menjawab 1 pertanyaan dengan benar."
+  TAMPILKAN "Selamat mencoba!\n\nTekan OK untuk memulai"
+  PANGGIL FUNCTION battle()
+ENDIF
+
+FUNCTION playerSkills()
+  IF 'job' === "Knight"
+    ATUR 'skills' menjadi 
+	[
+	  ["Charge!",""],
+      ["Bash","Effect : Stun ~ Membuat lawan tidak mendapatkan giliran selama 1 turn -- 30% chance"],
+      ["Defense UP!","Effect : Defense +10 ~ Menambah defense pemain secara permanen"],
+      ["Defense Bom",""]
+	];
+  ELSE IF 'job' === "Warrior"
+    ATUR 'skills' menjadi
+	[
+	  ["V-Slash",""],
+      ["Z-Slash",""],
+      ["Attack Up!","Effect : Attack +10 ~ Menambah attack pemain secara permanen"],
+      ["The Great Warrior","Effect : Status +10 ~ Menambahkan status pemain secara permanen"]
+	]
+  ELSE IF 'job' === "Assasin"
+    ATUR 'skills' menjadi
+	[
+	  ["Backstab!","Effect : Critical ~ Menambah damage yang di keluarkan"],
+      ["Poison Bom","Effect : Poison ~ Mengurangi darah lawan 5% perturn -- 30% chance"],
+      ["Slash",""],
+      ["Double Slash",""]
+	]
+  ELSE IF 'job' === "Wizard"
+    ATUR 'skills' menjadi
+	[
+	  ["Lightning!","Effect : Paralyze ~ Membuat musuh tidak dapat menyerang berdasarkan peluang, 30% chance"],
+      ["Inferno!",""],
+      ["Blizzard!","Effect : Frozen ~ Membekukan lawan, sehingga lawan tidak mendapat giliran selama 1 turn, 30% chance"],
+      ["Rain of Meteor",""]
+	]
+  ELSE
+    ATUR 'skills' menjadi
+	[
+	  ["Purification",""],
+      ["Light Beam",""],
+      ["Heals","Effect : Heal ~ Menambah 5% darah pemain"],
+      ["Greater Heals","Effect : Heal ~ Menambah 10% darah pemain"]
+	]
+  ENDIF
+  
+  RETURN skills
+ENDFUNCTION
+
+FUNCTION playerStatus(powerup)
+  IF 'job' === "Knight"
+    ATUR 'playerHp' menjadi 13000 ditambah(powerup dikali 100)
+    ATUR 'playerDef' menjadi 100 ditambah powerup
+    ATUR 'playerAtk' menjadi 80 ditambah powerup
+    ATUR 'playerInt' menjadi 0
+    ATUR 'playerAgi' menjadi 55 ditambah powerup
+	TAMPILKAN "Character Status : \n~~Hp : 'playerHp'\n~~Def : 'playerDef'\n~~Atk : 'playerAtk'\n~~Int : 'playerInt'\n~~Agi : 'playerAgi'"
+  ELSE IF 'job' === "Warrior"
+    ATUR 'playerHp' menjadi 12000 ditambah(powerup dikali 100)
+    ATUR 'playerDef' menjadi 85 ditambah powerup
+    ATUR 'playerAtk' menjadi 100 ditambah powerup
+    ATUR 'playerInt' menjadi 0
+    ATUR 'playerAgi' menjadi 55 ditambah powerup
+	TAMPILKAN "Character Status : \n~~Hp : 'playerHp'\n~~Def : 'playerDef'\n~~Atk : 'playerAtk'\n~~Int : 'playerInt'\n~~Agi : 'playerAgi'"
+  ELSE IF 'job' === "Assasin"
+    ATUR 'playerHp' menjadi 10500 ditambah(powerup dikali 100)
+    ATUR 'playerDef' menjadi 80 ditambah powerup
+    ATUR 'playerAtk' menjadi 80 ditambah powerup
+    ATUR 'playerInt' menjadi 0
+    ATUR 'playerAgi' menjadi 100 ditambah powerup
+	TAMPILKAN "Character Status : \n~~Hp : 'playerHp'\n~~Def : 'playerDef'\n~~Atk : 'playerAtk'\n~~Int : 'playerInt'\n~~Agi : 'playerAgi'"
+  ELSE IF 'job' === "Wizard"
+    ATUR 'playerHp' menjadi 10500 ditambah(powerup dikali 100)
+    ATUR 'playerDef' menjadi 75 ditambah powerup
+    ATUR 'playerAtk' menjadi 0
+    ATUR 'playerInt' menjadi 130 ditambah powerup
+    ATUR 'playerAgi' menjadi 50 ditambah powerup
+	TAMPILKAN "Character Status : \n~~Hp : 'playerHp'\n~~Def : 'playerDef'\n~~Atk : 'playerAtk'\n~~Int : 'playerInt'\n~~Agi : 'playerAgi'"
+  ELSE
+    ATUR 'playerHp' menjadi 17000 ditambah(powerup dikali 100)
+    ATUR 'playerDef' menjadi 75 ditambah powerup
+    ATUR 'playerAtk' menjadi 0
+    ATUR 'playerInt' menjadi 65 ditambah powerup
+    ATUR 'playerAgi' menjadi 50 ditambah powerup
+	TAMPILKAN "Character Status : \n~~Hp : 'playerHp'\n~~Def : 'playerDef'\n~~Atk : 'playerAtk'\n~~Int : 'playerInt'\n~~Agi : 'playerAgi'"
+  ENDIF
+ENDFUNCTION
+
+FUNCTION powerUp()
+  TAMPILKAN "Jawab Pertanyaan ini hanya dengan pilihan gandanya saja!!"
+  BUAT dan ATUR 'question' menjadi
+  [
+    ["Siapakah Presiden Indonesia Periode 2014-2019?\na. Jusuf Kalla\nb. Jokowi\nc. Habibi","b"],
+    ["Apa nama gedung tempat Hacktiv8 berada?\na. Aquarius\nb. TBS Tower\nc. RDT","a"],
+    ["Siapa nama ke 2 instruktur phase 0 full stack developer?\na. Fadil Wiranata dan Adhy Hakim\nb. Adhy Hakim dan Fadil Wiranata\nc. Fadil Hakim dan Adhy Wiranata","c"],
+    ["Apa nama batch untuk batch ke-12?\na. Livelyfox\nb. Kitfox\nc. Jackfox","a"],
+    ["Siapakah Wakil Presiden Indonesia Periode 2014-2019?\na. Jusuf Kalla\nb. Jokowi\nc. Habibi","a"],
+    ["Apa kepanjangan dari HTML?\na. Hypertext Main Language\nb. Hypertext Markdown Language\nc. Hypertext Markup Language","c"],
+    ["Apa fungsi dari tag <table></table> pada HTML?\na. Menghapus Tabel\nb. Membuat Tabel\nc. Mengatur Tabel","b"],
+    ["Apa kepanjangan dari CSS?\na. Cascading Style\nb. Cascade Styling\nc. Cascading Stylesheet","c"],
+    ["Apa fungsi dari Math.floor()?\na. Membulatkan Kebawah\nb. Membulatkan Keatas\nc. Menghilangkan angka dibelakang koma","a"],
+    ["Apa fungsi dari Math.trunc()?\na. Membulatkan Kebawah\nb. Membulatkan Keatas\nc. Menghilangkan angka dibelakang koma","c"]
+  ]
+  BUAT dan ATUR 'question2' menjadi pembulatan kebawah angka acak dari 0 sampai panjang 'question'
+  BUAT dan ATUR 'jawab' sesuai dengan masukan, TAMPILKAN 'question'['question2'][0]
+  ATUR 'jawab' menjadi huruf kecil
+  
+  IF 'jawab' == 'question'['question2'][1]
+    IF 'tambah' === 0
+	  ATUR 'tambah' menjadi 1
+	ENDIF
+	
+	TAMPILKAN "Benar!\n\nMasing-masing status ditambah 'tambah'"
+	RETURN playerStatus('tambah')
+  ELSE
+    TAMPILKAN "Maaf Jawaban anda salah!\n\nTidak dapat bonus status"
+	RETURN playerStatus(0)
+  ENDIF
+ENDFUNCTION
+
+FUNCTION battle()
+  PANGGIL FUNCTION powerUp()
+  PANGGIL FUNCTION playerSkills()
+  
+  BUAT dan ATUR 'tempAgiPlayer' menjadi 'playerAgi'
+  BUAT dan ATUR 'tempAgiLucifer' menjadi 'luciferAgi'
+  
+  TAMPILKAN konsol "~--==BATTLE LOG==--~"
+  FOR (BUAT dan ATUR 'i' menjadi 0, 'i' <25, 'i' sama dengan 'i' ditambah 1 )
+    IF 'luciferStatusEffect' === "Stun" dan 'inEffect' > 0
+	  ATUR 'turn' menjadi "player"
+	  ATUR 'inEffect' menjadi 'inEffect' dikurangi 1
+	ELSE IF 'luciferStatusEffect' === "Poison" dan 'inEffect' > 0
+	  IF 'tempAgiPlayer' >= 'tempAgiLucifer'
+	    ATUR 'turn' menjadi "player"
+		ATUR 'tempAgiPlayer' menjadi 'tempAgiPlayer' dikurangi 'luciferAgi'
+	  ELSE
+	    ATUR 'turn' menjadi "lucifer"
+		ATUR 'tempAgiLucifer' menjadi 'tempAgiLucifer' dikurangi 'playerAgi'
+		ATUR 'damage' menjadi pembulatan 'luciferHp' dikali 0.05
+		ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		ATUR 'inEffect' menjadi 'inEffect' dikurangi 1
+		TAMPILKAN konsol "\n~~~Lucifer took 'damage' from poison"
+	  ENDIF
+	ELSE IF 'luciferStatusEffect' === "Paralyze" dan 'inEffect' > 0
+	  BUAT dan ATUR 'getTurn' menjadi pembulatan kebawah angka acak dari 0 sampai 2
+	  IF 'getTurn' === 0
+	    ATUR 'turn' menjadi "player"
+		ATUR 'inEffect' menjadi 'inEffect' dikurangi 1
+		TAMPILKAN konsol "\n~~~Lucifer cannot move"
+	  ELSE
+	    ATUR 'turn' menjadi "lucifer"
+		ATUR 'inEffect' menjadi 'inEffect' dikurangi 1
+		ATUR 'tempAgiLucifer' menjadi 'tempAgiLucifer' dikurangi 'playerAgi'
+	  ENDIF
+	ELSE IF 'luciferStatusEffect' === "Freeze" dan 'inEffect' > 0
+	  ATUR 'turn' menjadi "player"
+	  ATUR 'inEffect' menjadi 'inEffect' dikurangi 1
+	ELSE
+	  ATUR 'luciferStatusEffect' menjadi ""
+	  IF 'tempAgiPlayer' >= 'tempAgiLucifer'
+	    ATUR 'turn' menjadi "player"
+		ATUR 'tempAgiPlayer' menjadi 'tempAgiPlayer' dikurangi 'luciferAgi'
+	  ELSE
+	    ATUR 'turn' menjadi "lucifer"
+		ATUR 'tempAgiLucifer' menjadi 'tempAgiLucifer' dikurangi 'playerAgi'
+	  ENDIF
+	ENDIF
+	
+	IF 'turn' === "player"
+	  ATUR 'setSkills' menjadi pembulatan kebawah angka acak dari 0 sampai panjang 'skills'
+	  ATUR 'skillsUsed' menjadi 'skills'['setSkills'][0]
+	  
+	  IF 'job' == "Knight"
+	    IF 'skillsUsed' === 'skills'[0][0]
+		  ATUR 'damage' menjadi ('playerAtk' dikurangi 'luciferDef') dikali 10
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		ELSE IF 'skillsUsed' === 'skills'[1][0]
+		  ATUR 'damage' menjadi ('playerAtk' dikurangi 'luciferDef') dikali 8
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		  ATUR 'chance' menjadi pembulatan kebawah angka acak dari 0 sampai 100
+		  IF 'chance' modulus 3 === 0
+		    ATUR 'luciferStatusEffect' menjadi "Stun"
+			ATUR 'inEffect' menjadi 1
+			TAMPILKAN konsol "~~Lucifer is Stunned"
+		  ENDIF
+		ELSE IF 'skillsUsed' === 'skills'[2][0]
+		  ATUR 'playerDef' menjadi 'playerDef' ditambah 10
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Def player up to 'playerDef'"
+		ELSE
+		  ATUR 'damage' menjadi ('playerDef' dikurangi 'luciferDef') dikali 10
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		ENDIF
+	  ELSE IF 'job' == "Warrior"
+	    IF 'skillsUsed' === 'skills'[0][0]
+		  ATUR 'damage' menjadi ('playerAtk' dikurangi 'luciferDef') dikali 10
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		ELSE IF 'skillsUsed' === 'skills'[1][0]
+		  ATUR 'damage' menjadi ('playerAtk' dikurangi 'luciferDef') dikali 10
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		ELSE IF 'skillsUsed' === 'skills'[2][0]
+		  ATUR 'playerAtk' menjadi 'playerAtk' ditambah 10
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Player Atk up to 'playerAtk'"
+		ELSE
+		  ATUR 'playerHp' menjadi 'playerHp' ditambah 1000
+		  ATUR 'playerDef' menjadi 'playerDef' ditambah 10
+		  ATUR 'playerAtk' menjadi 'playerAtk' ditambah 10
+		  ATUR 'playerAgi' menjadi 'playerAgi' ditambah 10
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Player Status up"
+		ENDIF
+	  ELSE IF 'job' == "Assasin"
+	    IF 'skillsUsed' === 'skills'[0][0]
+		  ATUR 'damage' menjadi ('playerAtk' dikurangi 'luciferDef') dikali 10
+		  ATUR 'damage' menjadi 'damage' ditambah 200
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		ELSE IF 'skillsUsed' === 'skills'[1][0]
+		  ATUR 'damage' menjadi ('playerAtk' dikurangi 'luciferDef') dikali 8
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		  ATUR 'chance' menjadi pembulatan kebawah angka acak dari 0 sampai 100
+		  IF 'chance' modulus 3 === 0
+		    ATUR 'luciferStatusEffect' menjadi "Poison"
+			ATUR 'inEffect' menjadi 3
+			TAMPILKAN konsol "~~Lucifer is Poisoned"
+		  ENDIF
+		ELSE IF 'skillsUsed' === 'skills'[2][0]
+		  ATUR 'damage' menjadi ('playerAtk' dikurangi 'luciferDef') dikali 10
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		ELSE
+		  ATUR 'damage' menjadi ('playerAtk' dikurangi 'luciferDef') dikali 10
+		  ATUR 'damage' menjadi 'damage' dikali 2
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		ENDIF
+	  ELSE IF 'job' == "Wizard"
+	    IF 'skillsUsed' === 'skills'[0][0]
+		  ATUR 'damage' menjadi ('playerInt' dikurangi 'luciferDef') dikali 8
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		  ATUR 'chance' menjadi pembulatan kebawah angka acak dari 0 sampai 100
+		  IF 'chance' modulus 3 === 0
+		    ATUR 'luciferStatusEffect' menjadi "Paralyze"
+			ATUR 'inEffect' menjadi 3
+			TAMPILKAN konsol "~~Lucifer is Paralyzed"
+		  ENDIF
+		ELSE IF 'skillsUsed' === 'skills'[1][0]
+		  ATUR 'damage' menjadi ('playerInt' dikurangi 'luciferDef') dikali 10
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		ELSE IF 'skillsUsed' === 'skills'[2][0]
+		  ATUR 'damage' menjadi ('playerInt' dikurangi 'luciferDef') dikali 8
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		  ATUR 'chance' menjadi pembulatan kebawah angka acak dari 0 sampai 100
+		  IF 'chance' modulus 3 === 0
+		    ATUR 'luciferStatusEffect' menjadi "Freeze"
+			ATUR 'inEffect' menjadi 1
+			TAMPILKAN konsol "~~Lucifer is Frozen"
+		  ENDIF
+		ELSE
+		  ATUR 'damage' menjadi ('playerInt' dikurangi 'luciferDef') dikali 7
+		  ATUR 'damage' menjadi 'damage' dikali 3
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage from 3 Meteor"
+		ENDIF
+	  ELSE
+	    IF 'skillsUsed' === 'skills'[0][0]
+		  ATUR 'damage' menjadi ('playerInt' dikurangi 'luciferDef') dikali 9
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		ELSE IF 'skillsUsed' === 'skills'[1][0]
+		  ATUR 'damage' menjadi ('playerInt' dikurangi 'luciferDef') dikali 10
+		  
+		  IF 'damage' <= 0
+		    ATUR 'damage' menjadi 0
+		  ENDIF
+		  
+		  ATUR 'luciferHp' menjadi 'luciferHp' dikurangi 'damage'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~Lucifer took 'damage' damage"
+		ELSE IF 'skillsUsed' === 'skills'[2][0]
+		  ATUR 'heals' menjadi pembulatan dari 'playerHp' dikali 0.05
+		  ATUR 'playerHp' menjadi 'playerHp' ditambah 'heals'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~'ign' heals 'heals' HP"
+		ELSE
+		  ATUR 'heals' menjadi pembulatan dari 'playerHp' dikali 0.1
+		  ATUR 'playerHp' menjadi 'playerHp' ditambah 'heals'
+		  TAMPILKAN konsol "\n'ign' Keluarkan Skill 'skillsUsed'"
+		  TAMPILKAN konsol "~~'ign' heals 'heals' HP"
+		ENDIF
+	  ENDIF
+	ELSE
+	  ATUR 'setSkills' menjadi pembulatan kebawah angka acak dari 0 - panjang 'luciferSkills'
+	  ATUR 'skillsUsed' menjadi 'luciferSkills'['setSkills']
+	  
+	  IF 'skillsUsed' === 'luciferSkills'[0]
+	    ATUR 'damage' menjadi ('luciferAtk' dikurangi 'playerDef') dikali 10
+		
+		IF 'damage' <= 0
+		  ATUR 'damage' menjadi 0
+		ENDIF
+		
+		ATUR 'playerHp' menjadi 'playerHp' dikurangi 'damage'
+		TAMPILKAN konsol "\nLucifer Keluarkan Skill 'skillsUsed'"
+		TAMPILKAN konsol "~~'ign' took 'damage' damage"
+	  ELSE IF 'skillsUsed' === 'luciferSkills'[1]
+	    ATUR 'damage' menjadi ('luciferInt' dikurangi 'playerDef') dikali 10
+		
+		IF 'damage' <= 0
+		  ATUR 'damage' menjadi 0
+		ENDIF
+		
+		ATUR 'playerHp' menjadi 'playerHp' dikurangi 'damage'
+		TAMPILKAN konsol "\nLucifer Keluarkan Skill 'skillsUsed'"
+		TAMPILKAN konsol "~~'ign' took 'damage' damage"
+      ELSE IF 'skillsUsed' === 'luciferSkills'[2]
+	    ATUR 'damage' menjadi ('luciferInt' dikurangi 'playerDef') dikali 10
+		
+		IF 'damage' <= 0
+		  ATUR 'damage' menjadi 0
+		ENDIF
+		
+		ATUR 'playerHp' menjadi 'playerHp' dikurangi 'damage'
+		ATUR 'heals' menjadi pembulatan angka dari 'damage' dikali 0.07
+		ATUR 'luciferHp' menjadi 'luciferHp' ditambah 'heals'
+		TAMPILKAN konsol "\nLucifer Keluarkan Skill 'skillsUsed'"
+		TAMPILKAN konsol "~~'ign' took 'damage' damage"
+		TAMPILKAN konsol "~~Lucifer Heals 'heals' Hp""
+	  ELSE
+	    ATUR 'damage' menjadi ('luciferInt' dikurangi 'playerDef') dikali 10
+		
+		IF 'damage' <= 0
+		  ATUR 'damage' menjadi 0
+		ENDIF
+		
+		ATUR 'playerHp' menjadi 'playerHp' dikurangi 'damage'
+		TAMPILKAN konsol "\nLucifer Keluarkan Skill 'skillsUsed'"
+		TAMPILKAN konsol "~~'ign' took 'damage' damage"
+	  ENDIF
+	ENDIF
+  ENDFOR
+  IF 'playerHp' > 'luciferHp'
+    TAMPILKAN konsol "\nSelamat 'ign' Berhasil Mengalahkan Lucifer!!"
+  ELSE IF 'luciferHp' > 'playerHp'
+    TAMPILKAN konsol "\nGame Over.....\n'job' 'ign' Telah dikalahkan Lucifer!!"
+  ELSE
+    TAMPILKAN konsol "\nPertarungan Berakhir Seimbang"
+  ENDIF
+ENDFUNCTION
